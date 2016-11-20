@@ -1,0 +1,20 @@
+security:
+  oauth2:
+    client:
+      clientId: 292277589748-no0k68r6ear488pei58qa6dfboh2uqun.apps.googleusercontent.com
+      clientSecret: uq7b9vZExqlHCY8dlXKpeq79
+      accessTokenUri: https://www.googleapis.com/oauth2/v3/token
+      userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
+      authenticationScheme: query
+      tokenName: oauth_token
+      scope: profile,email
+      clientAuthenticationScheme: form
+    resource:
+      userInfoUri: https://www.googleapis.com/userinfo/v2/me
+      prefer-token-info: false
+spring:
+  jpa:
+    hibernate:
+      naming:
+        strategy: org.hibernate.cfg.DefaultComponentSafeNamingStrategy
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
