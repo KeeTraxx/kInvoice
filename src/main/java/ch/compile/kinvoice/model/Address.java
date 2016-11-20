@@ -19,4 +19,9 @@ public class Address {
     private String zip;
     private String city;
     private String country;
+
+    @Override
+    public String toString() {
+        return name + "\n" + street + "\n" + zip + " " + city + (country.equals("Switzerland") ? "" : "\n" + country);
+    }
 }

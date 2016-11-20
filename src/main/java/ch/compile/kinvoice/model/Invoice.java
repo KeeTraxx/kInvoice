@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import vesr.Vesr;
+import vesr.VesrType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +28,7 @@ public class Invoice extends BaseEntity implements Serializable {
             setId(dummyId++);
             setClientAddress(Address.DUMMY);
             setInvoiceAddress(Address.DUMMY);
+            setCreditorAddress(Address.DUMMY);
             setAmount(BigDecimal.valueOf(3000));
         }};
     }
@@ -44,6 +47,9 @@ public class Invoice extends BaseEntity implements Serializable {
     @NonNull
     private Address clientAddress;
 
+    @NonNull
+    private Address creditorAddress;
+
     private String salesOrder;
     private String purchaseOrder;
 
@@ -53,4 +59,17 @@ public class Invoice extends BaseEntity implements Serializable {
     @NonNull
     @Column(precision = 8, scale = 2)
     private BigDecimal amount;
+
+    public String getFormattedReferenceNumber() {
+        return Vesr.getFormattedReferenceNumber(getReferenceNumber());
+    }
+
+    public String getReferenceNumber() {
+        return String.format("%04d%05d", LocalDate.now().getYear(), id);
+    }
+
+    public String getEsr() {
+        return Vesr.getESR(VesrType.PAYMENT_CHF, amount, getReferenceNumber(),"01-92722-7");
+    }
+
 }

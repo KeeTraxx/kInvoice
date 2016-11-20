@@ -37,7 +37,6 @@ public class InvoiceController {
         Collection<Invoice> invoices = Invoice.createDummyList();
         parameterMap.put("datasource", new JRBeanCollectionDataSource(invoices));
         parameterMap.put("format", "pdf");
-        parameterMap.put("test", "tester3");
         return new ModelAndView(invoiceReportView, parameterMap);
     }
 

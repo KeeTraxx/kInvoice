@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-19T22:54:21 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvoiceReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e1cc083f-6084-48b4-a6b6-77bb96ec44bb">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Invoice"/>
+<!-- 2016-11-20T22:13:06 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvoiceReport" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e1cc083f-6084-48b4-a6b6-77bb96ec44bb">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Invoices"/>
+	<property name="com.jaspersoft.studio.unit." value="cm"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -36,6 +37,11 @@
 	<field name="status" class="ch.compile.kinvoice.model.InvoiceStatus">
 		<fieldDescription><![CDATA[status]]></fieldDescription>
 	</field>
+	<field name="creditorAddress" class="ch.compile.kinvoice.model.Address">
+		<fieldDescription><![CDATA[creditorAddress]]></fieldDescription>
+	</field>
+	<field name="formattedReferenceNumber" class="java.lang.String"/>
+	<field name="esr" class="java.lang.String"/>
 	<group name="Group1" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{id}]]></groupExpression>
 	</group>
@@ -43,11 +49,258 @@
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="283" splitType="Stretch">
-			<property name="com.jaspersoft.studio.unit.height" value="cm"/>
-			<textField>
-				<reportElement x="80" y="0" width="100" height="30" uuid="a1780d63-2953-4b64-82aa-8543a7cf9e29"/>
-				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+		<band height="841" splitType="Stretch">
+			<frame>
+				<reportElement x="9" y="681" width="153" height="20" uuid="e7f3d3d6-b6b7-4d05-ac2b-55c8bfb190c7"/>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="11" height="20" uuid="a1780d63-2953-4b64-82aa-8543a7cf9e29">
+						<property name="com.jaspersoft.studio.unit.x" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(0)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="14" y="0" width="11" height="20" uuid="178c1463-0ed5-49ab-83be-c3e81db515ac">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(1)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="28" y="0" width="11" height="20" uuid="25efa0b5-7d5b-47a2-8387-1aa7eb2c79da">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(2)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="42" y="0" width="11" height="20" uuid="f737b0b0-42a6-4dab-9254-a0468e285a3c">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(3)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="56" y="0" width="11" height="20" uuid="c766bcd1-621c-4ab7-b0ba-4956a1f98adb">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(4)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="70" y="0" width="11" height="20" uuid="56c3a978-6881-4817-930b-edede6854b82">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(5)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="84" y="0" width="11" height="20" uuid="3bba7271-2b23-4a1f-b6ee-50c3f121788c">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(6)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="98" y="0" width="11" height="20" uuid="0d8e4e30-28d7-44d1-896a-14949190c122">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(7)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="128" y="0" width="11" height="20" uuid="d5eb7cbf-383c-46fc-9761-4f528c2eaa8a">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(9)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="142" y="0" width="11" height="20" uuid="5e5f6187-eb3a-4267-8832-e61a00805a2a">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(10)]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="182" y="681" width="153" height="20" uuid="3ad956ef-3883-4277-ad12-9b52530ac875">
+					<property name="com.jaspersoft.studio.unit.x" value="cm"/>
+				</reportElement>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="11" height="20" uuid="de0bc310-7f89-45ef-a536-e5925c4db3b8">
+						<property name="com.jaspersoft.studio.unit.x" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(0)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="14" y="0" width="11" height="20" uuid="b4c09744-3394-44c6-aec9-ea514789ecdd">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(1)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="28" y="0" width="11" height="20" uuid="fc40ee74-6711-4df1-909b-8e603ff98d59">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(2)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="42" y="0" width="11" height="20" uuid="fc1a0d46-3e50-4c78-b0a1-2c702299c8b4">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(3)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="56" y="0" width="11" height="20" uuid="f5b958cf-3665-4be4-8171-c8a5904bfd06">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(4)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="70" y="0" width="11" height="20" uuid="e072df71-0572-40e4-aa9b-2296fc73c96a">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(5)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="84" y="0" width="11" height="20" uuid="d3783069-d383-405f-bd79-c2a6a5c0eb7d">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(6)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="98" y="0" width="11" height="20" uuid="3eb4f523-15bf-4f53-a187-01de6764408a">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(7)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="128" y="0" width="11" height="20" uuid="2e629cab-9790-4db4-be1d-5ac51d8cb4b4">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(9)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="FixRelativeToBottom" x="142" y="0" width="11" height="20" uuid="b30005c4-4e95-45a6-94ef-dc325dbd742a">
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="ORCB"/>
+					</textElement>
+					<textFieldExpression><![CDATA[String.format("%11s" ,$F{amount}.setScale(2, BigDecimal.ROUND_HALF_UP).toString()).replace('.', ' ').charAt(10)]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField isBlankWhenNull="true">
+				<reportElement x="19" y="572" width="149" height="85" uuid="7baa0d6d-edcc-434a-a512-ce7c2daca0a6">
+					<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+				</reportElement>
+				<textElement>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{creditorAddress}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="189" y="572" width="149" height="85" uuid="087948f3-330d-4d79-9847-54a6c37679f8">
+					<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+				</reportElement>
+				<textElement>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{creditorAddress}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="19" y="713" width="149" height="85" uuid="02a93457-640b-4dd2-a82f-df2743fe2fb2">
+					<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+					<property name="com.jaspersoft.studio.unit.x" value="cm"/>
+				</reportElement>
+				<textElement>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{invoiceAddress}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="360" y="683" width="214" height="85" uuid="41c4d5d6-4c0f-4bd4-82e7-2f76bc6e564b">
+					<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+					<property name="com.jaspersoft.studio.unit.x" value="cm"/>
+				</reportElement>
+				<textElement>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{invoiceAddress}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="360" y="637" width="225" height="20" uuid="4fe79d21-eb24-4796-a4bc-56fe31d76770">
+					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="ORCB"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{formattedReferenceNumber}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="192" y="810" width="392" height="20" uuid="39b41cd4-aee0-4504-895d-81b2512f2de4">
+					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="ORCB"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{esr}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
