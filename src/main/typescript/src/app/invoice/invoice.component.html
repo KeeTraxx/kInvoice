@@ -1,3 +1,7 @@
-<p>
-  invoice works!
-</p>
+Invoice Component
+
+<p-dataTable [value]="invoices">
+  <p-column field="invoiceAddress.name" header="InvoiceAddress"></p-column>
+</p-dataTable>
+
+<button (click)="test()">save</button>
