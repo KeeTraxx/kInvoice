@@ -4,8 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import vesr.Vesr;
-import vesr.VesrType;
+import ch.compile.vesr.Vesr;
+import ch.compile.vesr.VesrType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,8 +47,9 @@ public class Invoice extends BaseEntity implements Serializable {
     @NonNull
     private Address clientAddress;
 
-    @NonNull
     private Address creditorAddress;
+
+    private String creditorAccount;
 
     private String salesOrder;
     private String purchaseOrder;
@@ -69,7 +70,7 @@ public class Invoice extends BaseEntity implements Serializable {
     }
 
     public String getEsr() {
-        return Vesr.getESR(VesrType.PAYMENT_CHF, amount, getReferenceNumber(),"01-92722-7");
+        return Vesr.getESR(VesrType.PAYMENT_CHF, amount, getReferenceNumber(),getCreditorAccount());
     }
 
 }

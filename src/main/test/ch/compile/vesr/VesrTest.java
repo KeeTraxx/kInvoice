@@ -1,9 +1,6 @@
 package ch.compile.vesr;
 
 import org.junit.Test;
-import vesr.Vesr;
-import vesr.VesrType;
-
 import java.math.BigDecimal;
 
 public class VesrTest {
@@ -60,9 +57,7 @@ public class VesrTest {
     @Test
     public void testESRLong() {
         String t = Vesr.getESR(VesrType.PAYMENT_CHF, new BigDecimal(100.00),"123456789012345678", "01-001525-2");
-
         assert t.equals("0100000100009>000000001234567890123456785+ 010015252>");
-
     }
 
 }

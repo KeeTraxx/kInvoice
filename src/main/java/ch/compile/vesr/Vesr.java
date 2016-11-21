@@ -1,10 +1,9 @@
-package vesr;
+package ch.compile.vesr;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 /**
  * Created by kt_qwacujb on 20.11.2016.
@@ -66,6 +65,5 @@ public class Vesr {
         String result = getChecksumFromReferenceNumber(referenceNumber);
         String reverse = Joiner.on(' ').join(Splitter.fixedLength(5).split(new StringBuilder(result).reverse().toString()));
         return new StringBuilder(reverse).reverse().toString();
-
     }
 }

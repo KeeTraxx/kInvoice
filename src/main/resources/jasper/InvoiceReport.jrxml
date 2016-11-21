@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-20T22:13:06 -->
+<!-- 2016-11-21T16:20:41 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvoiceReport" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e1cc083f-6084-48b4-a6b6-77bb96ec44bb">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Invoices"/>
 	<property name="com.jaspersoft.studio.unit." value="cm"/>
@@ -42,6 +42,7 @@
 	</field>
 	<field name="formattedReferenceNumber" class="java.lang.String"/>
 	<field name="esr" class="java.lang.String"/>
+	<field name="creditorAccount" class="java.lang.String"/>
 	<group name="Group1" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{id}]]></groupExpression>
 	</group>
@@ -49,7 +50,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="841" splitType="Stretch">
+		<band height="830" splitType="Stretch">
 			<frame>
 				<reportElement x="9" y="681" width="153" height="20" uuid="e7f3d3d6-b6b7-4d05-ac2b-55c8bfb190c7"/>
 				<textField isBlankWhenNull="true">
@@ -241,7 +242,7 @@
 				</textField>
 			</frame>
 			<textField isBlankWhenNull="true">
-				<reportElement x="19" y="572" width="149" height="85" uuid="7baa0d6d-edcc-434a-a512-ce7c2daca0a6">
+				<reportElement x="19" y="572" width="149" height="65" uuid="7baa0d6d-edcc-434a-a512-ce7c2daca0a6">
 					<property name="com.jaspersoft.studio.unit.y" value="cm"/>
 					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
 				</reportElement>
@@ -251,7 +252,7 @@
 				<textFieldExpression><![CDATA[$F{creditorAddress}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="189" y="572" width="149" height="85" uuid="087948f3-330d-4d79-9847-54a6c37679f8">
+				<reportElement x="189" y="572" width="149" height="65" uuid="087948f3-330d-4d79-9847-54a6c37679f8">
 					<property name="com.jaspersoft.studio.unit.y" value="cm"/>
 					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
 				</reportElement>
@@ -302,6 +303,35 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{esr}]]></textFieldExpression>
 			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="238" y="650" width="103" height="20" uuid="738d999b-b188-4b58-9cc8-92ffd7e970f2">
+					<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+				</reportElement>
+				<textElement>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{creditorAccount}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="62" y="650" width="103" height="20" uuid="25106a9e-5a39-47ee-a6ed-497be54fb570">
+					<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+				</reportElement>
+				<textElement>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{creditorAccount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="56" y="80" width="484" height="30" uuid="640e9287-a345-4d5e-a9ab-4036f66d97f7">
+					<property name="com.jaspersoft.studio.unit.x" value="cm"/>
+				</reportElement>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rechnung / Facture / Bill]]></text>
+			</staticText>
 		</band>
 	</detail>
 </jasperReport>

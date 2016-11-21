@@ -1,4 +1,4 @@
-package vesr;
+package ch.compile.vesr;
 
 /**
  * Created by kt_qwacujb on 20.11.2016.
