@@ -1,5 +1,6 @@
 package ch.compile.kinvoice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -26,9 +27,11 @@ public abstract class BaseEntity {
 
     @Column(nullable = false, updatable = false)
     @CreatedDate
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     LocalDateTime createdDate;
 
     @LastModifiedDate
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     LocalDateTime modifiedDate;
 
 

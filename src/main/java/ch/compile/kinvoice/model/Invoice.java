@@ -1,5 +1,6 @@
 package ch.compile.kinvoice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -54,6 +55,7 @@ public class Invoice extends BaseEntity implements Serializable {
     private String salesOrder;
     private String purchaseOrder;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dueDate = LocalDate.now().plusDays(30);
     private InvoiceStatus status = InvoiceStatus.UNPAID;
 
