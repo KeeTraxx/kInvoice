@@ -12,9 +12,10 @@ import javax.persistence.Embeddable;
 @Data
 public class Address {
 
-    public final static Address DUMMY = new Address("Peter Muster", "Musterstrasse 123", "3072", "Ostermundigen", "Switzerland");
+    public final static Address DUMMY = new Address("Peter Muster", "Muster GmbH", "Musterstrasse 123", "3072", "Ostermundigen", "Switzerland");
 
     private String name;
+    private String company;
     private String street;
     private String zip;
     private String city;
@@ -22,6 +23,6 @@ public class Address {
 
     @Override
     public String toString() {
-        return name + "\n" + street + "\n" + zip + " " + city + (country != null ? (country.equals("Switzerland") ? "" : "\n" + country) : "");
+        return name + "\n" + company + "\n" + street + "\n" + zip + " " + city + (country != null ? (country.equals("Switzerland") ? "" : "\n" + country) : "");
     }
 }

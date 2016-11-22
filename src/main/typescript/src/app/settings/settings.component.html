@@ -1,3 +1,56 @@
-<p>
-  settings works!
-</p>
+<div class="form-horizontal">
+  <fieldset>
+    <legend>Settings</legend>
+    <div class="form-group">
+      <label for="name" class="col-lg-2 control-label">Name</label>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" id="name" placeholder="Peter Muster" [(ngModel)]="settings.invoiceAddress.name">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="company" class="col-lg-2 control-label">Company</label>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" id="company" placeholder="Muster GmbH" [(ngModel)]="settings.invoiceAddress.company">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="street" class="col-lg-2 control-label">Street / no°</label>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" id="street" placeholder="Musterstrasse 123" [(ngModel)]="settings.invoiceAddress.street">
+      </div>
+    </div>
+
+
+      <div class="form-group">
+        <label for="zip" class="col-lg-2 control-label">PO Code</label>
+        <div class="col-lg-2">
+          <input type="text" class="form-control" id="zip" placeholder="1234" [(ngModel)]="settings.invoiceAddress.zip">
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="city" class="col-lg-2 control-label">City</label>
+        <div class="col-lg-4">
+          <input type="text" class="form-control" id="city" placeholder="Musterstadt" [(ngModel)]="settings.invoiceAddress.city">
+        </div>
+      </div>
+    <div class="form-group">
+    </div>
+
+    <div class="form-group">
+      <label for="account" class="col-lg-2 control-label">Account</label>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" id="account" placeholder="e.g. 01-123456-7"  [(ngModel)]="settings.invoiceAccount">
+      </div>
+    </div>
+  </fieldset>
+  <button class="btn btn-primary" (click)="save(settings)">Save</button>
+</div>
+
+<br>
+<alert *ngFor="let alert of alerts; let i=index" [type]="alert.type" dismissOnTimeout="3000">
+  {{alert?.msg}}
+</alert>
