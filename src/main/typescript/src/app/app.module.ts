@@ -8,11 +8,13 @@ import {RouterModule} from "@angular/router";
 import {appRoutes} from "./app.routes";
 import {DataTableModule} from "primeng/components/datatable/datatable";
 import {InvoiceService} from "./invoice.service";
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InvoiceComponent
+    InvoiceComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

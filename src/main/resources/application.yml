@@ -18,6 +18,11 @@ spring:
       naming:
         strategy: org.hibernate.cfg.DefaultComponentSafeNamingStrategy
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+      ddl-auto: update
   data:
     rest:
       base-path: /api
+  datasource:
+    url: jdbc:h2:file:./opt/db/ictfzdb
+    username: sa
+    password: sa
