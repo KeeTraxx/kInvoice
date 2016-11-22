@@ -1,0 +1,111 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-horizontal">
+      <fieldset>
+        <legend>Client</legend>
+        <div class="form-group">
+          <label for="customername" class="col-lg-2 control-label">Name</label>
+          <div class="col-lg-8">
+            <input type="text" class="form-control" id="customername" [(ngModel)]="invoice.clientAddress.name">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="customercompany" class="col-lg-2 control-label">Company</label>
+          <div class="col-lg-8">
+            <input type="text" class="form-control" id="customercompany" [(ngModel)]="invoice.clientAddress.company">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="customerstreet" class="col-lg-2 control-label">Street / no°</label>
+          <div class="col-lg-8">
+            <input type="text" class="form-control" id="customerstreet" [(ngModel)]="invoice.clientAddress.street">
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="customerzip" class="col-lg-2 control-label">PO Code</label>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" id="customerzip" [(ngModel)]="invoice.clientAddress.zip">
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="customercity" class="col-lg-2 control-label">City</label>
+          <div class="col-lg-8">
+            <input type="text" class="form-control" id="customercity" [(ngModel)]="invoice.clientAddress.city">
+          </div>
+        </div>
+
+      </fieldset>
+    </div>
+
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-horizontal">
+      <fieldset>
+        <legend>Invoice</legend>
+        <div class="form-group">
+          <label for="invoicename" class="col-lg-2 control-label">Name</label>
+          <div class="col-lg-8">
+            <input type="text" class="form-control" id="invoicename" [(ngModel)]="invoice.invoiceAddress.name"
+                   [disabled]="sameAsClient">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="invoicecompany" class="col-lg-2 control-label">Company</label>
+          <div class="col-lg-8">
+            <input type="text" class="form-control" id="invoicecompany" [(ngModel)]="invoice.invoiceAddress.company"
+                   [disabled]="sameAsClient">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="invoicestreet" class="col-lg-2 control-label">Street / no°</label>
+          <div class="col-lg-8">
+            <input type="text" class="form-control" id="invoicestreet" [(ngModel)]="invoice.invoiceAddress.street"
+                   [disabled]="sameAsClient">
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="invoicezip" class="col-lg-2 control-label">PO Code</label>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" id="invoicezip" [(ngModel)]="invoice.invoiceAddress.zip"
+                   [disabled]="sameAsClient">
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="invoicecity" class="col-lg-2 control-label">City</label>
+          <div class="col-lg-8">
+            <input type="text" class="form-control" id="invoicecity" [(ngModel)]="invoice.invoiceAddress.city"
+                   [disabled]="sameAsClient">
+          </div>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" [(ngModel)]="sameAsClient">Same as client</label>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+</div>
+
+<br>
+<button class="btn btn-primary" (click)="save(invoice)">Save</button>
+<br>
+
+<alert *ngFor="let alert of alerts; let i=index" [type]="alert.type" dismissOnTimeout="3000">
+  {{alert?.msg}}
+</alert>
+<pre>
+{{invoice | json}}
+</pre>
