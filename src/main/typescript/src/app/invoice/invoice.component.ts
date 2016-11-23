@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {Http} from "@angular/http";
+import {Component, OnInit} from "@angular/core";
 import {InvoiceService} from "../invoice.service";
+import {Invoice} from "../invoice";
+import {Page} from "../page";
 
 @Component({
   selector: 'app-invoice',
@@ -9,28 +10,34 @@ import {InvoiceService} from "../invoice.service";
 })
 export class InvoiceComponent implements OnInit {
 
-  constructor(private http:Http, private invoiceService:InvoiceService) {
+  private invoices: Invoice[];
+  private data:Page;
+
+  constructor(private invoiceService: InvoiceService) {
 
   }
 
   ngOnInit() {
+    this.refresh('/api/invoices');
   }
 
-  test() {
-    this.invoiceService.saveInvoice({
-      amount: 3000,
-      clientAddress: {
-        name: 'Peter Muster',
-        street: "Musterstrasse 123",
-        zip: "3072",
-        city: "Ostermundigen"
-      },
-      invoiceAddress: {
-        name: 'Peter Muster',
-        street: "Musterstrasse 123",
-        zip: "3072",
-        city: "Ostermundigen"
-      }
-    }).then(console.log);
+  refresh(link:string) {
+    this.invoiceService.getInvoices(link).then(hal => {
+      this.data = hal;
+      this.invoices = hal._embedded.invoices.map(invoice => {
+        invoice.dueDate = new Date(invoice.dueDate);
+        return invoice;
+      }) as Invoice[];
+    });
+  }
+
+  isOverDue(invoice:Invoice) {
+    return (new Date().getTime() - invoice.dueDate.getTime()) > 0;
+  }
+
+  setStatus(status:string, invoice:Invoice) {
+    invoice.status = status;
+
+    this.invoiceService.updateStatus(invoice).then(console.log).catch(console.error);
   }
 }

@@ -22,6 +22,8 @@ export interface Invoice {
   private BigDecimal amount;
 */
 
+  id?:number;
+
   invoiceAddress:Address;
   clientAddress:Address;
   creditorAddress?:Address;

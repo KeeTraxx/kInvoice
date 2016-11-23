@@ -10,3 +10,4 @@ buildNumber.properties
 .idea
 node_modules
 *.iml
+opt

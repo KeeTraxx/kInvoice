@@ -8,14 +8,17 @@ export class InvoiceService {
   constructor(private http: Http) {
   }
 
-  getInvoices() {
-    return this.http.get('/api/invoices').toPromise()
-      .then(res => res.json() as Invoice[])
-      .catch(console.error);
+  getInvoices(link:string = '/api/invoices') {
+    return this.http.get(link).toPromise()
+      .then(res => res.json());
   }
 
   saveInvoice(invoice:Invoice) {
     return this.http.post('/api/invoices/new', invoice).toPromise();
+  }
+
+  updateStatus(invoice:Invoice) {
+    return this.http.put('/api/invoices/'+invoice.id+'/updateStatus', invoice.status).toPromise();
   }
 
 }

@@ -1,4 +1,40 @@
-Invoice Component
-<button (click)="test()">save</button>
+<table class="table table-striped table-hover">
+  <thead>
+  <tr>
+    <td>Due date</td>
+    <td>Debitor</td>
+    <td>Amount</td>
+    <td>Status</td>
+    <td>Actions</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let invoice of invoices; let i=index" [ngClass]="{success: invoice.status == 'PAID', warning: invoice.status != 'PAID' && isOverDue(invoice), danger: invoice.status == 'WRITE_OFF'}">
+    <td>{{invoice.dueDate | date:'dd.MM.yyyy'}}</td>
+    <td>{{invoice.clientAddress.name}}, {{invoice.clientAddress.company}}</td>
+    <td>{{invoice.amount | currency:'CHF'}}</td>
+    <td>{{invoice.status}}</td>
+    <td>
+      <a target="_blank" href="/api/invoices/report/{{invoice.id}}"><i class="glyphicon glyphicon-print"></i></a>
+      <i class="glyphicon glyphicon-usd" (click)="setStatus(invoice.status == 'UNPAID' ? 'PAID' : 'UNPAID', invoice)"></i>
+      <i class="glyphicon glyphicon-ban-circle"></i>
+    </td>
+  </tr>
+  </tbody>
+</table>
 
-<button class="btn btn-primary">test</button>
+<div class="text-center">
+  <button class="btn" [ngClass]="{'btn-primary': data?.page.number > 0}" (click)="refresh(data._links.first.href)">
+    <i class="glyphicon glyphicon-step-backward"></i>
+  </button>
+  <button class="btn" [ngClass]="{'btn-primary': data?._links.prev}" (click)="refresh(data._links.prev.href)">
+    <i class="glyphicon glyphicon-chevron-left"></i>
+  </button>
+  <button class="btn" [ngClass]="{'btn-primary': data?._links.next}" (click)="refresh(data._links.next.href)">
+    <i class="glyphicon glyphicon-chevron-right"></i>
+  </button>
+  <button class="btn" [ngClass]="{'btn-primary': data?.page.number < data?.page.totalPages-1}"
+          (click)="refresh(data._links.last.href)">
+    <i class="glyphicon glyphicon-step-forward"></i>
+  </button>
+</div>

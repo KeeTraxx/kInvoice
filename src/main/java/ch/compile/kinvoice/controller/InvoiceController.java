@@ -72,4 +72,11 @@ public class InvoiceController {
         parameterMap.put("format", "pdf");
         return new ModelAndView(invoiceReportView, parameterMap);
     }
+
+    @RequestMapping(value="/{id}/updateStatus", method = RequestMethod.PUT)
+    public void updateStatus(@PathVariable Long id, @RequestBody String status) {
+        Invoice invoice = invoiceRepository.findOne(id);
+        invoice.setStatus(InvoiceStatus.valueOf(status));
+        invoiceRepository.save(invoice);
+    }
 }
