@@ -97,6 +97,7 @@
                 <version>1.3</version>
                 <configuration>
                     <nodeVersion>v6.9.1</nodeVersion>
+                    <npmVersion>3.10.8</npmVersion>
                     <workingDirectory>src/main/typescript</workingDirectory>
                 </configuration>
                 <executions>
