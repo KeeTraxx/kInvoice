@@ -172,6 +172,10 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <!-- This is needed for fonts.jar -->
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
             </plugin>
         </plugins>
     </build>
