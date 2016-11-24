@@ -1,6 +1,5 @@
 package ch.compile.kinvoice.controller;
 
-import ch.compile.kinvoice.model.Address;
 import ch.compile.kinvoice.model.Invoice;
 import ch.compile.kinvoice.model.InvoiceStatus;
 import ch.compile.kinvoice.model.KInvoiceUserSettings;
@@ -11,11 +10,12 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.PostConstruct;
-import java.math.BigDecimal;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -57,11 +57,6 @@ public class InvoiceController {
         return invoiceRepository.save(invoice);
     }
 
-    @RequestMapping("/fakeInvoice")
-    public Invoice fakeInvoice() {
-        return new Invoice(Address.DUMMY, Address.DUMMY, new BigDecimal(3000));
-    }
-
     @RequestMapping(value = "/report/{ids}", method = RequestMethod.GET)
     public ModelAndView getReports(@PathVariable String ids) {
         Map<String, Object> parameterMap = new HashMap<>();
@@ -79,4 +74,10 @@ public class InvoiceController {
         invoice.setStatus(InvoiceStatus.valueOf(status));
         invoiceRepository.save(invoice);
     }
+
+    @RequestMapping("")
+    public Page<Invoice> getInvoices(Pageable pageable) {
+        return invoiceRepository.findAllExcept(pageable, InvoiceStatus.CANCELED);
+    }
+
 }

@@ -10,26 +10,43 @@ import {Page} from "../page";
 })
 export class InvoiceComponent implements OnInit {
 
-  private invoices: Invoice[];
-  private data:Page;
+  private data:Page<Invoice>;
+  private page:number = 0;
 
   constructor(private invoiceService: InvoiceService) {
 
   }
 
   ngOnInit() {
-    this.refresh('/api/invoices');
+    this.refresh();
   }
 
-  refresh(link:string) {
-    this.invoiceService.getInvoices(link).then(hal => {
-      this.data = hal;
-      this.invoices = hal._embedded.invoices.map(invoice => {
-        invoice.dueDate = new Date(invoice.dueDate);
-        return invoice;
-      }) as Invoice[];
+  refresh() {
+    this.invoiceService.getInvoices(this.page).then(page => {
+      this.data = page;
     });
   }
+
+  first() {
+    this.page = 0;
+    this.refresh();
+  }
+
+  prev() {
+    this.page--;
+    this.refresh();
+  }
+
+  next() {
+    this.page++;
+    this.refresh();
+  }
+
+  last() {
+    this.page = this.data.totalPages-1;
+    this.refresh();
+  }
+
 
   isOverDue(invoice:Invoice) {
     return (new Date().getTime() - invoice.dueDate.getTime()) > 0;

@@ -10,17 +10,17 @@
     </div>
     <div class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
-        <li>
-          <a routerLink="" routerLinkActive="active">Invoices</a>
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <a routerLink="">Invoices</a>
         </li>
-        <li>
-          <a routerLink="new" routerLinkActive="active">New Invoice</a>
+        <li routerLinkActive="active">
+          <a routerLink="new">New Invoice</a>
         </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a routerLink="settings" routerLinkActive="active">Settings</a>
+        <li routerLinkActive="active">
+          <a routerLink="settings">Settings</a>
         </li>
       </ul>
     </div>

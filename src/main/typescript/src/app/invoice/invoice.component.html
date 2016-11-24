@@ -9,7 +9,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let invoice of invoices; let i=index" [ngClass]="{success: invoice.status == 'PAID', warning: invoice.status != 'PAID' && isOverDue(invoice), danger: invoice.status == 'WRITE_OFF'}">
+  <tr *ngFor="let invoice of data?.content; let i=index" [ngClass]="{success: invoice.status == 'PAID', warning: invoice.status != 'PAID' && isOverDue(invoice), danger: invoice.status == 'WRITE_OFF', canceled: invoice.status == 'CANCELED'}">
     <td>{{invoice.dueDate | date:'dd.MM.yyyy'}}</td>
     <td>{{invoice.clientAddress.name}}, {{invoice.clientAddress.company}}</td>
     <td>{{invoice.amount | currency:'CHF'}}</td>
@@ -17,24 +17,23 @@
     <td>
       <a target="_blank" href="/api/invoices/report/{{invoice.id}}"><i class="glyphicon glyphicon-print"></i></a>
       <i class="glyphicon glyphicon-usd" (click)="setStatus(invoice.status == 'UNPAID' ? 'PAID' : 'UNPAID', invoice)"></i>
-      <i class="glyphicon glyphicon-ban-circle"></i>
+      <i class="glyphicon glyphicon-ban-circle" (click)="setStatus('CANCELED', invoice)"></i>
     </td>
   </tr>
   </tbody>
 </table>
 
 <div class="text-center">
-  <button class="btn" [ngClass]="{'btn-primary': data?.page.number > 0}" (click)="refresh(data._links.first.href)">
+  <button class="btn" [ngClass]="{'btn-primary': !data?.first}" [disabled]="data?.first" (click)="first()">
     <i class="glyphicon glyphicon-step-backward"></i>
   </button>
-  <button class="btn" [ngClass]="{'btn-primary': data?._links.prev}" (click)="refresh(data._links.prev.href)">
+  <button class="btn" [ngClass]="{'btn-primary': !data?.first}" [disabled]="data?.first" (click)="prev()">
     <i class="glyphicon glyphicon-chevron-left"></i>
   </button>
-  <button class="btn" [ngClass]="{'btn-primary': data?._links.next}" (click)="refresh(data._links.next.href)">
+  <button class="btn" [ngClass]="{'btn-primary': !data?.last}" [disabled]="data?.last" (click)="next()">
     <i class="glyphicon glyphicon-chevron-right"></i>
   </button>
-  <button class="btn" [ngClass]="{'btn-primary': data?.page.number < data?.page.totalPages-1}"
-          (click)="refresh(data._links.last.href)">
+  <button class="btn" [ngClass]="{'btn-primary': !data?.last}" [disabled]="data?.last" (click)="last()">
     <i class="glyphicon glyphicon-step-forward"></i>
   </button>
 </div>
