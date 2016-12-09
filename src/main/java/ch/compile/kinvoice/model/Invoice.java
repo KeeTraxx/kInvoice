@@ -8,8 +8,7 @@ import lombok.RequiredArgsConstructor;
 import ch.compile.vesr.Vesr;
 import ch.compile.vesr.VesrType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,10 +18,11 @@ import java.util.Collection;
 @Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
+@Table(indexes = {@Index(columnList = "user")})
 @Data
 public class Invoice extends BaseEntity implements Serializable {
 
-    private static Long dummyId = (long)1;
+    private static Long dummyId = (long) 1;
 
     public static Invoice getDummyInvoice() {
         return new Invoice() {{
@@ -35,12 +35,14 @@ public class Invoice extends BaseEntity implements Serializable {
     }
 
     public static Collection<Invoice> createDummyList() {
-        return new ArrayList<Invoice>(){{
+        return new ArrayList<Invoice>() {{
             add(getDummyInvoice());
             add(getDummyInvoice());
             add(getDummyInvoice());
         }};
     }
+
+    private String user;
 
     @NonNull
     private Address invoiceAddress;
@@ -72,7 +74,7 @@ public class Invoice extends BaseEntity implements Serializable {
     }
 
     public String getEsr() {
-        return Vesr.getESR(VesrType.PAYMENT_CHF, amount, getReferenceNumber(),getCreditorAccount());
+        return Vesr.getESR(VesrType.PAYMENT_CHF, amount, getReferenceNumber(), getCreditorAccount());
     }
 
 }

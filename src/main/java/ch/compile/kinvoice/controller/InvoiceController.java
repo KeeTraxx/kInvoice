@@ -7,7 +7,6 @@ import ch.compile.kinvoice.report.InvoiceReportView;
 import ch.compile.kinvoice.repository.InvoiceRepository;
 import ch.compile.kinvoice.repository.KInvoiceUserSettingsRepository;
 import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -47,9 +46,10 @@ public class InvoiceController {
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public Invoice newInvoice(@RequestBody Invoice invoice, Principal principal) {
         KInvoiceUserSettings settings = kInvoiceUserSettingsRepository.findOne(principal.getName());
-        if ( settings == null) {
+        if (settings == null) {
             throw new RuntimeException("No settings.");
         }
+        invoice.setUser(principal.getName());
         invoice.setCreditorAddress(settings.getInvoiceAddress());
         invoice.setCreditorAccount(settings.getInvoiceAccount());
         invoice.setStatus(InvoiceStatus.UNPAID);
@@ -58,17 +58,17 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "/report/{ids}", method = RequestMethod.GET)
-    public ModelAndView getReports(@PathVariable String ids) {
+    public ModelAndView getReports(@PathVariable String ids, Principal principal) {
         Map<String, Object> parameterMap = new HashMap<>();
         List<String> strings = Splitter.on(',').trimResults().omitEmptyStrings().splitToList(ids);
         List<Long> longs = strings.stream().map(Long::valueOf).collect(Collectors.toList());
-        Collection<Invoice> invoices = Lists.newArrayList(invoiceRepository.findAll(longs));
+        Collection<Invoice> invoices = invoiceRepository.findAllByUser(longs, principal.getName()).collect(Collectors.toList());
         parameterMap.put("datasource", new JRBeanCollectionDataSource(invoices));
         parameterMap.put("format", "pdf");
         return new ModelAndView(invoiceReportView, parameterMap);
     }
 
-    @RequestMapping(value="/{id}/updateStatus", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}/updateStatus", method = RequestMethod.PUT)
     public void updateStatus(@PathVariable Long id, @RequestBody String status) {
         Invoice invoice = invoiceRepository.findOne(id);
         invoice.setStatus(InvoiceStatus.valueOf(status));
@@ -76,8 +76,8 @@ public class InvoiceController {
     }
 
     @RequestMapping("")
-    public Page<Invoice> getInvoices(Pageable pageable) {
-        return invoiceRepository.findAllExcept(pageable, InvoiceStatus.CANCELED);
+    public Page<Invoice> getInvoices(Pageable pageable, Principal principal) {
+        return invoiceRepository.findAllExcept(pageable, InvoiceStatus.CANCELED, principal.getName());
     }
 
 }
